@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/hattaya92/finalexam/middleware"
+
 	"github.com/gin-gonic/gin"
 	"github.com/hattaya92/finalexam/database"
 
@@ -175,7 +177,7 @@ func loginMiddleware(c *gin.Context) {
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
-	r.Use(loginMiddleware)
+	r.Use(middleware.LoginMiddleware)
 	r.POST("/customers", createCustomersHandler)
 	r.GET("/customers/:id", getCustomersByIDHandler)
 	r.GET("/customers/", getAllCustomersHandler)
