@@ -163,18 +163,6 @@ func delCustomerByIDHandler(c *gin.Context) {
 
 }
 
-func loginMiddleware(c *gin.Context) {
-	authKey := c.GetHeader("Authorization")
-	if authKey != "token2019" {
-		c.JSON(http.StatusUnauthorized, "Status code is 401 Unauthorized")
-		c.Abort()
-		return
-	}
-
-	c.Next()
-	log.Println("ending middleware")
-}
-
 func NewRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(middleware.LoginMiddleware)
