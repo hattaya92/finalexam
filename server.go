@@ -186,10 +186,7 @@ func loginMiddleware(c *gin.Context) {
 	log.Println("ending middleware")
 }
 
-func main() {
-	ConnDB()
-	CreateTable()
-
+func newRouter() *gin.Engine {
 	r := gin.Default()
 	r.Use(loginMiddleware)
 	r.POST("/customers", createCustomersHandler)
@@ -197,7 +194,14 @@ func main() {
 	r.GET("/customers/", getAllCustomersHandler)
 	r.PUT("/customers/:id", updateCustomerByIDHandler)
 	r.DELETE("/customers/:id", delCustomerByIDHandler)
+	return r
+}
 
+func main() {
+	ConnDB()
+	CreateTable()
+
+	r := newRouter()
 	r.Run(":2019")
 
 }
